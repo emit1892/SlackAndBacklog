@@ -4,7 +4,7 @@ import os
 BASE_URL = 'https://{backlog_space_id}.backlog.com/api/v2/{api}'
 
 api_key = os.environ.get("BACKLOG_TOKEN")
-backlog_space_key = 'emit1892'
+backlog_space_key = os.environ.get("BACKLOG_SPACE_KEY")
 
 def add_issue(_project_key, _issue_type_id, _priority_id, _summary, _description):
     api = 'issues'

@@ -4,7 +4,7 @@ import os
 BASE_URL = 'https://{backlog_space_id}.backlog.com/api/v2/{api}'
 
 api_key = os.environ.get("BACKLOG_TOKEN")
-backlog_space_key = 'emit1892'
+backlog_space_key = os.environ.get("BACKLOG_SPACE_KEY")
 
 def add_comment(_comment, _issue_id_key):
     api = f'issues/{_issue_id_key}/comments'
