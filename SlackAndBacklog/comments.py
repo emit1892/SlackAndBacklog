@@ -3,15 +3,15 @@ import os
 
 BASE_URL = 'https://{backlog_space_id}.backlog.com/api/v2/{api}'
 
-api_key = os.environ.get("BACKLOG_TOKEN")
-backlog_space_key = os.environ.get("BACKLOG_SPACE_KEY")
+# api_key = os.environ.get("BACKLOG_TOKEN")
+# backlog_space_key = os.environ.get("BACKLOG_SPACE_KEY")
 
-def add_comment(_comment, _issue_id_key):
+def add_comment(_comment, _issue_id_key, _api_key, _backlog_space_key):
     api = f'issues/{_issue_id_key}/comments'
-    url = BASE_URL.format(backlog_space_id=backlog_space_key, api=api)
+    url = BASE_URL.format(backlog_space_id=_backlog_space_key, api=api)
     
     params = {
-        'apiKey': api_key
+        'apiKey': _api_key
     }
     
     headers = {
