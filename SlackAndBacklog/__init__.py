@@ -1,7 +1,7 @@
 import logging
 import os
 import requests
-import comments
+from SlackAndBacklog import comments
 import azure.functions as func
 
 BASE_URL = 'https://{backlog_space_id}.backlog.com/api/v2/{api}'
