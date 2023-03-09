@@ -10,7 +10,7 @@ backlog_space_key = os.environ.get("BACKLOG_SPACE_KEY")
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
-
+    
     issue_id_key = 'EMPROJECT-1'
     comment = '''
         test
