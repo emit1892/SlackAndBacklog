@@ -1,12 +1,23 @@
 import requests
-import os
+import logging
+from SlackAndBacklog import slack
+import azure.functions as func
 
 BASE_URL = 'https://{backlog_space_id}.backlog.com/api/v2/{api}'
 
-# api_key = os.environ.get("BACKLOG_TOKEN")
-# backlog_space_key = os.environ.get("BACKLOG_SPACE_KEY")
-
 def add_comment(_comment, _issue_id_key, _api_key, _backlog_space_key):
+    """
+    Backlogにコメントを追加する。
+
+    Args:
+        _comment (_type_): コメント
+        _issue_id_key (_type_): 課題番号
+        _api_key (_type_): apikey
+        _backlog_space_key (_type_): プロジェクトキー
+
+    Returns:
+        登録結果
+    """
     api = f'issues/{_issue_id_key}/comments'
     url = BASE_URL.format(backlog_space_id=_backlog_space_key, api=api)
     
@@ -27,11 +38,30 @@ def add_comment(_comment, _issue_id_key, _api_key, _backlog_space_key):
     
     return response
 
-# issue_id_key = 'EMPROJECT-1'
-# comment = '''
-#     test
-#     テスト
-#     # test
-# '''
+def create_comment(_slack_info):
+    """
+    Slack情報からBacklog用コメントを作成する。
 
-# response = add_comment(comment, issue_id_key)
+    Args:
+        _slack_info (_type_): Slack情報
+
+    Returns: 
+        Backlog用コメント
+    """
+    
+    slack_info = _slack_info
+    slack_info_list = slack_info.split("&")
+    
+    slack_info_dict = {}
+    for key_value in slack_info_list:
+        key, value = key_value.split("=")
+        slack_info_dict[key] = value
+    
+    logging.info(slack_info_dict)
+    
+    slack.get_slack_reply(slack_info_dict['channel_id'], slack_info_dict[''])
+    comment = """
+    
+    """
+    
+    return comment
