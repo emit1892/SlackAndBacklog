@@ -9,17 +9,22 @@ api_key = os.environ.get("BACKLOG_TOKEN")
 backlog_space_key = os.environ.get("BACKLOG_SPACE_KEY")
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
-    logging.info(str(req.get_body()))
+    slack_req_json = req.get_json()
+    logging.info(slack_req_json)
     
-    req_body = req.get_json()
     # slack_info_list = req.get_body().split("&")
     
     # slack_info_dict = {}
     # for key_value in slack_info_list:
     #     key_value = key_value.split("=")
     #     slack_info_dict[key_value[0]] = key_value[1]
+    channel_id = slack_req_json['event']['channel']
+    logging.info(f'チャンネルID: {channel_id}')
     
-    return func.HttpResponse(req_body.get('challenge') ,status_code=200)
+    ts = slack_req_json['event']['ts']
+    logging.info(f'チャンネルID: {ts}')
+    
+    return func.HttpResponse('' ,status_code=200)
     # slack情報から投稿コメントを作成
     slack_info = req.get_body().decode('utf-8')
     comment = comments.create_comment(slack_info)
