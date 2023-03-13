@@ -22,7 +22,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     comment = comments.create_comment(slack_req_json)
     
     # slackに投稿
-    logging.info(f'課題キー: {issue_id_key}に{comment}を登録')
-    # comments.add_comment(comment, issue_id_key, api_key, backlog_space_key)
+    logging.info(f'課題キー: {issue_id_key}')
+    logging.info(f'コメント内容: {comment}')
+    comments.add_comment(comment, issue_id_key, api_key, backlog_space_key)
     
     return func.HttpResponse('' ,status_code=200)
