@@ -30,3 +30,5 @@ def get_slack_reply(_channel, _thread):
 
     response = requests.get(url, headers=headers, params=params)
     print(response.json())
+    
+    return response.json()
