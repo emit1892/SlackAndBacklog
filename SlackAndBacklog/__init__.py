@@ -21,7 +21,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         # 投稿するBacklogの課題キー
         slack_text = slack_req_json['event']['text'].split(' ')
         issue_id_key = ''
-        if len(slack_text) >= 1:
+        if len(slack_text) >= 2:
             issue_id_key = slack_text[1]
             logging.info(issue_id_key)
         
