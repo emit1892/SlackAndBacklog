@@ -8,13 +8,13 @@ BASE_URL = 'https://{backlog_space_id}.backlog.com/api/v2/{api}'
 
 def add_comment(_comment, _issue_id_key, _api_key, _backlog_space_key):
     """
-    Backlogにコメントを追加する。
+    Backlogにコメントを追加する
 
     Args:
-        _comment (_type_): コメント
-        _issue_id_key (_type_): 課題番号
-        _api_key (_type_): apikey
-        _backlog_space_key (_type_): プロジェクトキー
+        _comment (str): コメント
+        _issue_id_key (str): 課題番号
+        _api_key (str): apikey
+        _backlog_space_key (str): プロジェクトキー
 
     Returns:
         登録結果
@@ -41,10 +41,10 @@ def add_comment(_comment, _issue_id_key, _api_key, _backlog_space_key):
 
 def create_comment(_slack_req_json):
     """
-    Slack情報からBacklog用コメントを作成する。
+    Slack情報からBacklog用コメントを作成する
 
     Args:
-        _slack_req_json (_type_): Slack情報
+        _slack_req_json (str): Slack情報
 
     Returns: 
         Backlog用コメント

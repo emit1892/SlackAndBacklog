@@ -7,8 +7,8 @@ def get_slack_reply(_channel, _thread):
     指定したチャンネル内のスレッドの投稿を取得
 
     Args:
-        _channel (string): チャンネルID
-        _thread (string): スレッド情報
+        _channel (str): チャンネルID
+        _thread (str): スレッド情報
     """
     
     TOKEN = os.environ.get("SLACK_TOKEN")

@@ -34,6 +34,16 @@ def add_issue(_project_key, _issue_type_id, _priority_id, _summary, _description
     return response
 
 def get_issues_info(_issue_id_key):
+    """
+    Backlogの課題情報を取得する
+
+    Args:
+        _issue_id_key (str): 課題キー
+
+    Returns:
+        指定した課題キーの課題情報
+    """
+    
     issue_id_key = _issue_id_key
     api = 'issues'
     url = BASE_URL.format(backlog_space_id=backlog_space_key, api=api)
