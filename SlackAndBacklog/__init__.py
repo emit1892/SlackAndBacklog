@@ -41,6 +41,5 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             logging.info(issues_info['issueKey'])
             return func.HttpResponse('' ,status_code=200)
         
-    except Exception as e:
-        logging.info(e.message)
+    except:
         return func.HttpResponse(e.message ,status_code=500)
