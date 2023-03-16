@@ -61,7 +61,9 @@ def create_comment(_slack_req_json):
     comment = 'Slackから登録\r\n'
     
     for slack_comment in slack_reply_json['messages']:
-        comment += slack_comment['text']
-        comment += '\r\n***********\r\n'
+        # @Slack and Backlogの投稿は除外
+        if not f'@U04SCK3SJG3' in slack_comment['text']:
+            comment += slack_comment['text']
+            comment += '\r\n***********\r\n'
         
     return comment
