@@ -37,9 +37,10 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         if 'errors' in issues_info:
             return func.HttpResponse(f'{issue_id_key} は存在しません。' ,status_code=200)
         else:
-            #comments.add_comment(comment, issue_id_key, api_key, backlog_space_key)
-            logging.info(issues_info['issueKey'])
-            return func.HttpResponse('' ,status_code=200)
+            if comment:
+                comments.add_comment(comment, issue_id_key, api_key, backlog_space_key)
+                logging.info(issues_info['issueKey'])
+                return func.HttpResponse('' ,status_code=200)
         
     except:
         return func.HttpResponse(e.message ,status_code=500)
