@@ -32,6 +32,7 @@ def add_comment(_comment, _issue_id_key, _api_key, _backlog_space_key):
         'content': _comment
     }
     
+    logging.info(url)
     response = requests.post(url, params=params, headers=headers, data=payload)
     response.raise_for_status()
     
@@ -49,14 +50,22 @@ def create_comment(_slack_req_json):
         Backlog用コメント
     """
 
-    logging.info(_slack_req_json)
-    channel_id = _slack_req_json['event']['channel'] 
-    thread_ts = _slack_req_json['event']['thread_ts']
+    channel_id = ''
+    if 'channel' in _slack_req_json['event']:
+        channel_id = _slack_req_json['event']['channel'] 
     
-    slack_reply_json = slack.get_slack_reply(channel_id, thread_ts)
+    thread_ts = ''
+    if 'thread_ts' in _slack_req_json['event']:
+        thread_ts = _slack_req_json['event']['thread_ts']
     
-    comment = 'Slackから登録\r\n'
-    # @Slack and Backlogの投稿は除外
-    comment += '\r\n***********\r\n'.join([x for x in slack_reply_json['messages'] if not f'@U04SCK3SJG3' in x['text']])
+    comment = ''
+    if channel_id and thread_ts:
+        slack_reply_json = slack.get_slack_reply(channel_id, thread_ts)
+        logging.info(slack_reply_json)
+    
+        comment = 'Slackから登録\r\n'
+        # @Slack and Backlogの投稿は除外
+        comment += '\r\n***********\r\n'.join([x['text'] for x in slack_reply_json['messages'] if not f'@U04SCK3SJG3' in x['text']])
+        logging.info(comment)
         
     return comment

@@ -43,15 +43,15 @@ def get_issues_info(_issue_id_key):
         指定した課題キーの課題情報
     """
     
-    api = 'issues'
+    api = f'issues/{_issue_id_key}'
     url = BASE_URL.format(backlog_space_id=backlog_space_key, api=api)
     
     params = {
-        'apiKey': api_key,
-        'issueIdOrKey': _issue_id_key
+        'apiKey': api_key
     }
     
-    response = requests.post(url, params=params)
+    logging.info(url)
+    response = requests.get(url, params=params)
     issues_info = response.json()
     logging.info(issues_info)
     return issues_info
