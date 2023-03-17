@@ -1,9 +1,10 @@
 import logging
 import os
-import requests
+
+import azure.functions as func
+
 from SlackAndBacklog import comments
 from SlackAndBacklog import issues
-import azure.functions as func
 
 BASE_URL = 'https://{backlog_space_id}.backlog.com/api/v2/{api}'
 api_key = os.environ.get("BACKLOG_TOKEN")
@@ -31,7 +32,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         
         if not issue_id_key:
             return func.HttpResponse(f'課題キーを指定していません。' ,status_code=200)
-            
+        
+        # 指定した課題情報を取得
         issues_info = issues.get_issues_info(issue_id_key)
         
         if 'errors' in issues_info:
@@ -43,4 +45,4 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                 return func.HttpResponse('' ,status_code=200)
         
     except:
-        return func.HttpResponse(e.message ,status_code=500)
+        return func.HttpResponse('エラーが発生しました。',status_code=500)

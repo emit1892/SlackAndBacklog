@@ -28,7 +28,6 @@ def add_issue(_project_key, _issue_type_id, _priority_id, _summary, _description
     }
     
     response = requests.post(url, params=params, headers=headers, data=payload)
-    print(response.status_code)
     response.raise_for_status()
     
     return response
@@ -44,17 +43,15 @@ def get_issues_info(_issue_id_key):
         指定した課題キーの課題情報
     """
     
-    issue_id_key = _issue_id_key
     api = 'issues'
     url = BASE_URL.format(backlog_space_id=backlog_space_key, api=api)
     
     params = {
         'apiKey': api_key,
-        'issueIdOrKey': issue_id_key
+        'issueIdOrKey': _issue_id_key
     }
     
     response = requests.post(url, params=params)
     issues_info = response.json()
     logging.info(issues_info)
-    
     return issues_info

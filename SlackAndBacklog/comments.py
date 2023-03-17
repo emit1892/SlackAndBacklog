@@ -1,8 +1,6 @@
 import requests
 import logging
 from SlackAndBacklog import slack
-import azure.functions as func
-import json
 
 BASE_URL = 'https://{backlog_space_id}.backlog.com/api/v2/{api}'
 
@@ -39,6 +37,7 @@ def add_comment(_comment, _issue_id_key, _api_key, _backlog_space_key):
     
     return response
 
+
 def create_comment(_slack_req_json):
     """
     Slack情報からBacklog用コメントを作成する
@@ -49,21 +48,15 @@ def create_comment(_slack_req_json):
     Returns: 
         Backlog用コメント
     """
-    
-    slack_req_json = _slack_req_json
-    channel_id = slack_req_json['event']['channel'] 
-    ts = slack_req_json['event']['ts']
-    thread_ts = slack_req_json['event']['thread_ts']
+
+    logging.info(_slack_req_json)
+    channel_id = _slack_req_json['event']['channel'] 
+    thread_ts = _slack_req_json['event']['thread_ts']
     
     slack_reply_json = slack.get_slack_reply(channel_id, thread_ts)
-    logging.info(slack_reply_json)
     
     comment = 'Slackから登録\r\n'
-    
-    for slack_comment in slack_reply_json['messages']:
-        # @Slack and Backlogの投稿は除外
-        if not f'@U04SCK3SJG3' in slack_comment['text']:
-            comment += slack_comment['text']
-            comment += '\r\n***********\r\n'
+    # @Slack and Backlogの投稿は除外
+    comment += '\r\n***********\r\n'.join([x for x in slack_reply_json['messages'] if not f'@U04SCK3SJG3' in x['text']])
         
     return comment

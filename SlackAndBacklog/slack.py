@@ -1,5 +1,4 @@
 import requests
-from datetime import datetime
 import os
 
 def get_slack_reply(_channel, _thread):
@@ -12,23 +11,19 @@ def get_slack_reply(_channel, _thread):
     """
     
     TOKEN = os.environ.get("SLACK_TOKEN")
-    CHANNEL = _channel
-    THEREAD = _thread
     BASE_TOKEN = 'Bearer {TOKEN}'
     
     url = 'https://slack.com/api/conversations.replies'
 
     headers = {
-        "Authorization":  BASE_TOKEN.format(TOKEN=TOKEN)
+        "Authorization": BASE_TOKEN.format(TOKEN=TOKEN)
     }
 
     params = {
-        "channel": CHANNEL,
-        "ts": THEREAD,
-        "limit": 10
+        "channel": _channel,
+        "ts": _thread
     }
 
     response = requests.get(url, headers=headers, params=params)
-    print(response.json())
     
     return response.json()
