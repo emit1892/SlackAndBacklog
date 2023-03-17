@@ -50,7 +50,6 @@ def get_issues_info(_issue_id_key):
         'apiKey': api_key
     }
     
-    logging.info(url)
     response = requests.get(url, params=params)
     issues_info = response.json()
     logging.info(issues_info)
