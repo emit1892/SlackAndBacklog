@@ -63,9 +63,9 @@ def create_comment(_slack_req_json):
         slack_reply_json = slack.get_slack_reply(channel_id, thread_ts)
         logging.info(slack_reply_json)
     
-        comment = 'Slackから登録\r\n'
+        comment = 'Slackから登録\r\n\r\n'
         # @Slack and Backlogの投稿は除外
-        comment += '\r\n***********\r\n'.join([x['text'] for x in slack_reply_json['messages'] if not f'@U04SCK3SJG3' in x['text']])
+        comment += '\r\n\r\n***********\r\n\r\n'.join([x['text'] for x in slack_reply_json['messages'] if not f'@U04SCK3SJG3' in x['text']])
         logging.info(comment)
         
     return comment
